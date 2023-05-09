@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from "react";
 
-import Button from '../Button';
+import Button from "../Button";
 
-import styles from './ToastPlayground.module.css';
+import styles from "./ToastPlayground.module.css";
 
-const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
+const VARIANT_OPTIONS = ["notice", "warning", "success", "error"];
 
 function ToastPlayground() {
+  const [message, setMessage] = useState("");
+  const [level, setLevel] = useState("");
   return (
     <div className={styles.wrapper}>
       <header>
@@ -19,45 +21,52 @@ function ToastPlayground() {
           <label
             htmlFor="message"
             className={styles.label}
-            style={{ alignSelf: 'baseline' }}
+            style={{ alignSelf: "baseline" }}
           >
             Message
           </label>
           <div className={styles.inputWrapper}>
-            <textarea id="message" className={styles.messageInput} />
+            <textarea
+              id="message"
+              value={message}
+              className={styles.messageInput}
+              onChange={(e) => setMessage(e.target.value)}
+            />
           </div>
         </div>
 
         <div className={styles.row}>
           <div className={styles.label}>Variant</div>
-          <div
-            className={`${styles.inputWrapper} ${styles.radioWrapper}`}
-          >
-            <label htmlFor="variant-notice">
-              <input
-                id="variant-notice"
-                type="radio"
-                name="variant"
-                value="notice"
-              />
-              notice
-            </label>
-
-            {/* TODO Other Variant radio buttons here */}
+          <div className={`${styles.inputWrapper} ${styles.radioWrapper}`}>
+            {VARIANT_OPTIONS.map((buttonType) => (
+              <label htmlFor={buttonType}>
+                <input
+                  id={buttonType}
+                  key={buttonType}
+                  type="radio"
+                  name="variant"
+                  value={buttonType}
+                  onChange={() => setLevel(buttonType)}
+                />
+                {buttonType}
+              </label>
+            ))}
           </div>
         </div>
 
         <div className={styles.row}>
           <div className={styles.label} />
-          <div
-            className={`${styles.inputWrapper} ${styles.radioWrapper}`}
-          >
-            <Button>Pop Toast!</Button>
+          <div className={`${styles.inputWrapper} ${styles.radioWrapper}`}>
+            <Button onClick={showMe}>Pop Toast!</Button>
           </div>
         </div>
       </div>
     </div>
   );
+
+  function showMe() {
+    console.log({ level, message });
+  }
 }
 
 export default ToastPlayground;
