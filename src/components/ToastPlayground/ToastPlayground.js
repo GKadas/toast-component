@@ -14,13 +14,20 @@ function ToastPlayground() {
   const handleClick = () => {
     setShowToast(true);
   };
+
+  function handleDismiss() {
+    console.log("this was run in Toast");
+    setShowToast(false);
+  }
   return (
     <div className={styles.wrapper}>
       <header>
         <img alt="Cute toast mascot" src="/toast.png" />
         <h1>Toast Playground</h1>
       </header>
-      {showToast && <Toast message={message} level={level} />}
+      {showToast && (
+        <Toast message={message} level={level} handleDismiss={handleDismiss} />
+      )}
       <div className={styles.controlsWrapper}>
         <div className={styles.row}>
           <label

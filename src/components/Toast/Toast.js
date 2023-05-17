@@ -18,12 +18,8 @@ const ICONS_BY_VARIANT = {
   error: AlertOctagon,
 };
 
-function Toast({ message, level, setShowToast }) {
+function Toast({ message, level, handleDismiss }) {
   const styleLevel = `${styles.toast} ${styles[level]}`;
-
-  const handleX = () => {
-    setShowToast(false);
-  };
 
   return (
     <div className={styleLevel}>
@@ -32,7 +28,7 @@ function Toast({ message, level, setShowToast }) {
       </div>
       <p className={styles.content}>{message}</p>
       <button className={styles.closeButton}>
-        <X size={24} onClick={handleX} />
+        <X size={24} onClick={handleDismiss} />
         <VisuallyHidden>Dismiss message</VisuallyHidden>
       </button>
     </div>
