@@ -20,11 +20,12 @@ const ICONS_BY_VARIANT = {
 
 function Toast({ message, level, handleDismiss }) {
   const styleLevel = `${styles.toast} ${styles[level]}`;
+  const Icon = ICONS_BY_VARIANT[level];
 
   return (
     <div className={styleLevel}>
       <div className={styles.iconContainer}>
-        <Info size={24} />
+        <Icon size={24} />
       </div>
       <p className={styles.content}>{message}</p>
       <button className={styles.closeButton}>
