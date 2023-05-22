@@ -18,9 +18,14 @@ const ICONS_BY_VARIANT = {
   error: AlertOctagon,
 };
 
-function Toast({ message, level, handleDismiss }) {
+function Toast({ messageList, level, handleDismiss }) {
   const styleLevel = `${styles.toast} ${styles[level]}`;
   const Icon = ICONS_BY_VARIANT[level];
+
+  /*
+  Need to convert this to
+  render from the array with map
+  */
 
   return (
     <div className={styleLevel}>
