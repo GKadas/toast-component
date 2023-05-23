@@ -24,7 +24,7 @@ function Toast({ messageList, level, handleDismiss }) {
 
   /*
   Need to convert this to
-  render from the array with map
+  render from the array with map and find a way to deal with the icon...
   */
 
   return (
