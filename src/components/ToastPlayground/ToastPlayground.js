@@ -9,22 +9,34 @@ const VARIANT_OPTIONS = ["notice", "warning", "success", "error"];
 
 function ToastPlayground() {
   const [message, setMessage] = useState("");
-  const [messageList, setMessageList] = useState([]);
-  const [level, setLevel] = useState("");
+  const [variant, setVariant] = useState("");
+  const [toasts, setToasts] = useState([]);
   const [showToast, setShowToast] = useState(false);
+  // const [checked, setChecked] = useState(false);
 
   const handleClick = (event) => {
     event.preventDefault();
     setShowToast(true);
-    setMessageList([...prevState, message]);
+
+    const nextToasts = [
+      ...toasts,
+      {
+        id: crypto.randomUUID(),
+        message,
+        variant,
+      },
+    ];
+
+    setToasts(nextToasts);
+
     setMessage("");
-    setLevel("notice");
+    setVariant("notice");
+    console.log({ message, variant });
   };
 
-  function handleDismiss() {
-    console.log("this was run in Toast");
-    setShowToast(false);
-  }
+  // I might have to move this to accommodate dismiss. Would it make sense to move this into Toast itself?
+  // I need also to make sure that when I submit the form "notice" becomes checked
+
   return (
     <form onSubmit={handleClick}>
       <div className={styles.wrapper}>
@@ -32,13 +44,7 @@ function ToastPlayground() {
           <img alt="Cute toast mascot" src="/toast.png" />
           <h1>Toast Playground</h1>
         </header>
-        {showToast && (
-          <ToastShelf
-            messageList={messageList}
-            level={level}
-            handleDismiss={handleDismiss}
-          />
-        )}
+        {showToast && <ToastShelf toasts={toasts} setToasts={setToasts} />}
         <div className={styles.controlsWrapper}>
           <div className={styles.row}>
             <label
@@ -69,7 +75,7 @@ function ToastPlayground() {
                     type="radio"
                     name="variant"
                     value={buttonType}
-                    onChange={() => setLevel(buttonType)}
+                    onChange={() => setVariant(buttonType)}
                   />
                   {buttonType}
                 </label>

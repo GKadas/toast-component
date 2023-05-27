@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Children } from "react";
 import {
   AlertOctagon,
   AlertTriangle,
@@ -18,23 +18,19 @@ const ICONS_BY_VARIANT = {
   error: AlertOctagon,
 };
 
-function Toast({ messageList, level, handleDismiss }) {
-  const styleLevel = `${styles.toast} ${styles[level]}`;
-  const Icon = ICONS_BY_VARIANT[level];
-
-  /*
-  Need to convert this to
-  render from the array with map and find a way to deal with the icon...
-  */
+function Toast({ variant, id, handleDimiss, children }) {
+  const styleLevel = `${styles.toast} ${styles[variant]}`;
+  const Icon = ICONS_BY_VARIANT[variant];
 
   return (
     <div className={styleLevel}>
       <div className={styles.iconContainer}>
         <Icon size={24} />
       </div>
-      <p className={styles.content}>{message}</p>
+      <p className={styles.content}>{children}</p>
       <button className={styles.closeButton}>
-        <X size={24} onClick={handleDismiss} />
+        <X size={24} />{" "}
+        {/* might need here a handleDismiss. Currently since we are in a form, every onCLick (submit) triggers the new toast. */}
         <VisuallyHidden>Dismiss message</VisuallyHidden>
       </button>
     </div>
