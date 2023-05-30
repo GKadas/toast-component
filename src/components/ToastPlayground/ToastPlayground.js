@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import Button from "../Button";
 import styles from "./ToastPlayground.module.css";
-
-import Toast from "../Toast/Toast";
 import ToastShelf from "../ToastShelf/ToastShelf";
 
 const VARIANT_OPTIONS = ["notice", "warning", "success", "error"];
@@ -13,6 +11,13 @@ function ToastPlayground() {
   const [toasts, setToasts] = useState([]);
   const [showToast, setShowToast] = useState(false);
   // const [checked, setChecked] = useState(false);
+
+  function handleDismiss(id) {
+    const nextToasts = toasts.filter((toast) => {
+      return toast.id !== id;
+    });
+    setToasts(nextToasts);
+  }
 
   const handleClick = (event) => {
     event.preventDefault();
@@ -31,20 +36,21 @@ function ToastPlayground() {
 
     setMessage("");
     setVariant("notice");
-    console.log({ message, variant });
   };
 
   // I might have to move this to accommodate dismiss. Would it make sense to move this into Toast itself?
   // I need also to make sure that when I submit the form "notice" becomes checked
 
   return (
-    <form onSubmit={handleClick}>
-      <div className={styles.wrapper}>
-        <header>
-          <img alt="Cute toast mascot" src="/toast.png" />
-          <h1>Toast Playground</h1>
-        </header>
-        {showToast && <ToastShelf toasts={toasts} setToasts={setToasts} />}
+    <div className={styles.wrapper}>
+      <header>
+        <img alt="Cute toast mascot" src="/toast.png" />
+        <h1>Toast Playground</h1>
+      </header>
+      {showToast && (
+        <ToastShelf toasts={toasts} handleDismiss={handleDismiss} />
+      )}
+      <form onSubmit={handleClick}>
         <div className={styles.controlsWrapper}>
           <div className={styles.row}>
             <label
@@ -86,12 +92,12 @@ function ToastPlayground() {
           <div className={styles.row}>
             <div className={styles.label} />
             <div className={`${styles.inputWrapper} ${styles.radioWrapper}`}>
-              <Button>Pop Toast!</Button>
+              <Button type="submit">Pop Toast!</Button>
             </div>
           </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   );
 }
 

@@ -18,7 +18,7 @@ const ICONS_BY_VARIANT = {
   error: AlertOctagon,
 };
 
-function Toast({ variant, id, handleDimiss, children }) {
+function Toast({ variant, id, handleDismiss, children }) {
   const styleLevel = `${styles.toast} ${styles[variant]}`;
   const Icon = ICONS_BY_VARIANT[variant];
 
@@ -28,10 +28,8 @@ function Toast({ variant, id, handleDimiss, children }) {
         <Icon size={24} />
       </div>
       <p className={styles.content}>{children}</p>
-      <button className={styles.closeButton}>
-        <X size={24} />{" "}
-        {/* might need here a handleDismiss. Currently since we are in a form, every onCLick (submit) triggers the new toast. */}
-        <VisuallyHidden>Dismiss message</VisuallyHidden>
+      <button className={styles.closeButton} onClick={() => handleDismiss(id)}>
+        <X size={24} /> <VisuallyHidden>Dismiss message</VisuallyHidden>
       </button>
     </div>
   );
