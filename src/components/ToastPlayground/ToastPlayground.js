@@ -10,7 +10,7 @@ function ToastPlayground() {
   const [variant, setVariant] = useState("");
   const [toasts, setToasts] = useState([]);
   const [showToast, setShowToast] = useState(false);
-  // const [checked, setChecked] = useState(false);
+  const [selected, setSelected] = useState("notice");
 
   function handleDismiss(id) {
     const nextToasts = toasts.filter((toast) => {
@@ -37,9 +37,6 @@ function ToastPlayground() {
     setMessage("");
     setVariant("notice");
   };
-
-  // I might have to move this to accommodate dismiss. Would it make sense to move this into Toast itself?
-  // I need also to make sure that when I submit the form "notice" becomes checked
 
   return (
     <div className={styles.wrapper}>
