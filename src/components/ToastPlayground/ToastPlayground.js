@@ -10,7 +10,7 @@ function ToastPlayground() {
   const [variant, setVariant] = useState("");
   const [toasts, setToasts] = useState([]);
   const [showToast, setShowToast] = useState(false);
-  const [selected, setSelected] = useState("notice");
+  // const [selected, setSelected] = useState("notice");
 
   function handleDismiss(id) {
     const nextToasts = toasts.filter((toast) => {
@@ -78,6 +78,7 @@ function ToastPlayground() {
                     type="radio"
                     name="variant"
                     value={buttonType}
+                    checked={variant === buttonType}
                     onChange={() => setVariant(buttonType)}
                   />
                   {buttonType}
