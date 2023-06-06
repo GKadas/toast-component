@@ -1,4 +1,5 @@
-import React, { Children } from "react";
+import React, { Children, useContext } from "react";
+import { ToastContext } from "../ToastProvider/ToastProvider";
 import {
   AlertOctagon,
   AlertTriangle,
@@ -18,7 +19,8 @@ const ICONS_BY_VARIANT = {
   error: AlertOctagon,
 };
 
-function Toast({ variant, id, handleDismiss, children }) {
+function Toast({ children }) {
+  const { id = 0, variant, handleDismiss } = useContext(ToastContext);
   const styleLevel = `${styles.toast} ${styles[variant]}`;
   const Icon = ICONS_BY_VARIANT[variant];
 
