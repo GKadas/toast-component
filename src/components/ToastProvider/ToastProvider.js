@@ -37,7 +37,6 @@ function ToastProvider({ children }) {
   return (
     <ToastContext.Provider
       value={{
-        id,
         message,
         variant,
         toasts,

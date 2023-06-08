@@ -19,10 +19,15 @@ const ICONS_BY_VARIANT = {
   error: AlertOctagon,
 };
 
-function Toast({ children }) {
-  const { id = 0, variant, handleDismiss } = useContext(ToastContext);
+function Toast({ id, children }) {
+  const { variant, handleDismiss } = useContext(ToastContext);
   const styleLevel = `${styles.toast} ${styles[variant]}`;
   const Icon = ICONS_BY_VARIANT[variant];
+
+  {
+    /* I wasnt to look at the solution for this one to understand
+how context is used to pass the ID through context */
+  }
 
   return (
     <div className={styleLevel}>
