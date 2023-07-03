@@ -1,5 +1,4 @@
-import React, { Children, useContext } from "react";
-import { ToastContext } from "../ToastProvider/ToastProvider";
+import React from "react";
 import {
   AlertOctagon,
   AlertTriangle,
@@ -8,8 +7,8 @@ import {
   X,
 } from "react-feather";
 
+import { ToastContext } from "../ToastProvider";
 import VisuallyHidden from "../VisuallyHidden";
-
 import styles from "./Toast.module.css";
 
 const ICONS_BY_VARIANT = {
@@ -19,27 +18,28 @@ const ICONS_BY_VARIANT = {
   error: AlertOctagon,
 };
 
-function Toast({ id, children }) {
-  const { variant, handleDismiss } = useContext(ToastContext);
-  const styleLevel = `${styles.toast} ${styles[variant]}`;
+function Toast({ id, variant, children }) {
+  const { dismissToast } = React.useContext(ToastContext);
   const Icon = ICONS_BY_VARIANT[variant];
 
-  {
-    /* I wasnt to look at the solution for this one to understand
-how context is used to pass the ID through context */
-  }
-
   return (
-    <div className={styleLevel}>
+    <div className={`${styles.toast} ${styles[variant]}`}>
       <div className={styles.iconContainer}>
         <Icon size={24} />
       </div>
-      <p className={styles.content}>{children}</p>
-      <button className={styles.closeButton} onClick={() => handleDismiss(id)}>
-        <X size={24} /> <VisuallyHidden>Dismiss message</VisuallyHidden>
+      <p className={styles.content}>
+        <VisuallyHidden>{variant} -</VisuallyHidden>
+        {children}
+      </p>
+      <button
+        className={styles.closeButton}
+        onClick={() => dismissToast(id)}
+        aria-label="Dismiss Message"
+        aria-live="off"
+      >
+        <X size={24} />
       </button>
     </div>
   );
 }
-
 export default Toast;
