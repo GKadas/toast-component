@@ -37,6 +37,7 @@ function Toast({ id, variant, children }) {
         aria-label="Dismiss Message"
         aria-live="off"
       >
+        's;const [second] = first
         <X size={24} />
       </button>
     </div>
